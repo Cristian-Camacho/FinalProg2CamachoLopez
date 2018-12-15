@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: b0ee2cf4018e7e549ba7fb435cffdeb1
+timeCreated: 1544914894
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Razer Header Regular Oblique
+  fontNames:
+  - Razer Header Regular Oblique
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
