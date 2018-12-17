@@ -14,8 +14,8 @@ public class Node : MonoBehaviour
 
     void Start()
     {
-
-        /*if (!target && nextNodes.Count == 0 )
+        /*
+        if (!target && nextNodes.Count == 0 )
             nextNodes = GetNeightbords();*/
 
         NodeConteiner.instance.AddToConteiner(this);
@@ -54,5 +54,10 @@ public class Node : MonoBehaviour
             _renderer.material = materials[0];
         else
             _renderer.material = materials[1];
+    }
+
+    private void OnGUI()
+    {
+        
     }
 }

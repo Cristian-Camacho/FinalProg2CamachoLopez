@@ -11,16 +11,8 @@ public abstract class Entidad : MonoBehaviour , IUpdateable , IDamaged
     public virtual void Start ()
     {
         currentLife = maxLife;
+        GameController.instance.AddUpdateble(this);
 	}
-	
-    public virtual void UpdateMe()
-    {
-    }
-
-    private void Update()
-    {
-        UpdateMe();
-    }
 
     public virtual void TakeHit(float amount)
     {
@@ -30,10 +22,18 @@ public abstract class Entidad : MonoBehaviour , IUpdateable , IDamaged
     }
 
     public abstract void Die();
+    public virtual void UpdateMe()
+    { }
+
+    protected virtual void Feedback(GameObject feed, Vector3 pos, Quaternion qua)
+    {
+        var feedbac = Instantiate(feed, pos, qua);
+        Destroy(feedbac, 1.5f);
+    }
 
     public virtual void RemoveMe()
     {
-//        GameController.instance.RemoveUpdateable(this);
+        GameController.instance.RemoveUpdateable(this);
     }
 
 }

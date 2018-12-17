@@ -12,7 +12,7 @@ public class NodeConteiner : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
-        else Destroy(this.gameObject);
+        else Destroy(this);
     }
 
     // Use this for initialization
@@ -32,10 +32,15 @@ public class NodeConteiner : MonoBehaviour
             _allNodes.Add(node);
         }
 
-        //if (CheckAllNodeIn()) ClearColliders();
+        if (CheckAllNodeIn()) ClearColliders();
     }
 
-    /*
+    public Node TargetNode()
+    {
+        var nodeTarget = _allNodes.Where(x => x.target).First();
+        return nodeTarget;
+    }
+
     void ClearColliders()
     {
         var colliders = _allNodes.Select(node => node.gameObject.GetComponent<Collider>());
@@ -43,7 +48,7 @@ public class NodeConteiner : MonoBehaviour
         {
             Destroy(item);
         }
-    }*/
+    }
 
     bool CheckAllNodeIn()
     {

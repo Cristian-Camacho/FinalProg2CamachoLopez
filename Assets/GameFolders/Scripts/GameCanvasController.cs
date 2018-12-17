@@ -17,14 +17,14 @@ public class GameCanvasController : MonoBehaviour , IObserver
     
     void Start ()
     {
-        if (SystemInfo.deviceType == DeviceType.Handheld)
+       /* if (SystemInfo.deviceType == DeviceType.Handheld)
             mobileCanvasConteiner.SetActive(true);
         else
         {
  //           adButton.enabled = false;
             mobileCanvasConteiner.SetActive(false);
  //           caseNoAds.SetActive(true);
-        }
+        }*/
 
     }
 	

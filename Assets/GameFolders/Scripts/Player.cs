@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Player : Entidad, IObservable
 {
-    public GameObject model;
     public Vector3 startPos;
+    public float radius;
     private List<IObserver> _observers;
     private ControllerInput _controllerInput;
 
     public override void Start()
     {
         base.Start();
+        _observers = new List<IObserver>();
         startPos = this.transform.position;
         if (SystemInfo.deviceType == DeviceType.Handheld)
             _controllerInput = new MobileController(speed);
@@ -37,6 +38,11 @@ public class Player : Entidad, IObservable
 
     public override void Die()
     {
+    }
+
+    public void Reposition()
+    {
+        transform.position = startPos;
     }
 
     public void Subscribe(IObserver observer)
