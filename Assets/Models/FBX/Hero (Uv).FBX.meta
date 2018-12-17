@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2baf724104ad5d44a99dd4e260d45bd7
-timeCreated: 1544969123
+guid: ef1b59b1f58e9824b87d66ef54465fe0
+timeCreated: 1545027369
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -13,7 +13,9 @@ ModelImporter:
     400002: Cylinder046
     400004: //RootNode
     400006: Sphere006
-    2100000: No Name
+    2100000: 'Material #14'
+    2100002: 'Material #15'
+    2100004: 'Material #16'
     2300000: Box002
     2300002: Cylinder046
     2300004: Sphere006
