@@ -17,7 +17,7 @@ public abstract class Entidad : MonoBehaviour , IUpdateable , IDamaged
     public virtual void TakeHit(float amount)
     {
         currentLife -= amount;
-        if (currentLife < 1f)
+        if (currentLife <= 0f)
             Die();
     }
 
@@ -25,15 +25,15 @@ public abstract class Entidad : MonoBehaviour , IUpdateable , IDamaged
     public virtual void UpdateMe()
     { }
 
-    protected virtual void Feedback(GameObject feed, Vector3 pos, Quaternion qua)
-    {
-        var feedbac = Instantiate(feed, pos, qua);
-        Destroy(feedbac, 1.5f);
-    }
-
     public virtual void RemoveMe()
     {
         GameController.instance.RemoveUpdateable(this);
     }
 
+    public virtual void Feedback(GameObject visualFeed, Vector3 position, Quaternion rotation, int soundID)
+    {
+        var feedbac = Instantiate(visualFeed, position, rotation);
+        SoundManager.instance.PlaySound(soundID);
+        Destroy(feedbac, 1.5f);
+    }
 }

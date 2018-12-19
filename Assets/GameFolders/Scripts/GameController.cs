@@ -5,62 +5,136 @@ using UnityEngine;
 public class GameController : MonoBehaviour , IObservable
 {
     public static GameController instance;
-    private List<IUpdateable> _gameUpdateables;
-    private List<IUpdateable> _dontUpdateables;
+    public List<IUpdateable> _gameUpdateables;
+    public List<IUpdateable> _DontUpdateables;
     private List<IObserver> _observers;
-    public AudioSource mainAudio;
-    public GameObject conteinerObjectsGame;
-    private bool gameActive;
-    private bool endGameFase;
-    private bool constructionFase;
+    public List<IUpdateable> _construc;
+    public GameObject cameraGame;
+    public GameObject cameraConstrucction;
+
+    public float resources;
+    private bool endGameFase = false;
+    private bool constructionFase = false;
+    private bool pauseGame = false;
+    [SerializeField]
+    private Player _player;
+    [SerializeField]
+    private Core _core;
+
 
     private void Awake()
     {
-        if (instance != null) Destroy(this);
+        if (instance == null) instance = this;
+        else Destroy(this);
+        _DontUpdateables = new List<IUpdateable>();
         _gameUpdateables = new List<IUpdateable>();
-        _dontUpdateables = new List<IUpdateable>();
         _observers = new List<IObserver>();
-
-    }
-
-
-    void Start ()
-    {
-        NodeConteiner.instance.gameObject.SetActive(false);
-        conteinerObjectsGame.SetActive(true);
+        _construc = new List<IUpdateable>();
+        if (_player == null) _player = (Player)FindObjectOfType(typeof(Player));
+        if (_core == null) _core = (Core)FindObjectOfType(typeof(Core));
 
 
     }
-	
-	void Update ()
+    private void Start()
     {
-		if (gameActive && !constructionFase && _gameUpdateables.Count > 0)
+        EnterGameStage();
+    }
+
+    void Update ()
+    {
+        if (!pauseGame)
         {
-            foreach (var upts in _gameUpdateables)
+		    if (!constructionFase && _gameUpdateables.Count > 0)
             {
-                if (_dontUpdateables.Contains(upts))
-                    continue;
-
-                if(endGameFase)
+                foreach (var upts in _gameUpdateables)
                 {
-                    upts.UpdateMe();
-                    upts.UpdateMe();
-                }else
-                    upts.UpdateMe();
+                    if (_DontUpdateables.Contains(upts))
+                        continue;
+
+                    if(endGameFase)
+                    {
+                        upts.UpdateMe();
+                        upts.UpdateMe();
+                    }
+                    else
+                        upts.UpdateMe();
+                }
+            }
+            else if (_construc.Count > 0)
+            {
+                foreach (var item in _construc)
+                {
+                    item.UpdateMe();
+                }
+            }
+
+
+            foreach (var item in _DontUpdateables)
+            {
+                if (!_gameUpdateables.Contains(item))
+                {
+                    RemoveDonUpdateThis(item);
+                }
+
             }
         }
     }
 
-    public void CoreVisible(bool state)
+    public void EnterGameStage()
     {
-        if(state != gameActive)
-            gameActive = state;
+        NodeConteiner.instance.gameObject.SetActive(false);
+        cameraConstrucction.SetActive(false);
+        cameraGame.SetActive(true);
+        GameCanvasController.instance.GameHUD();
+        constructionFase = false;
+        EnemyController.instance.SpawnEnemy();
+    }
+
+    public void EnterConstrucctionStage()
+    {
+        NodeConteiner.instance.gameObject.SetActive(true);
+        GameCanvasController.instance.Construcction();
+        constructionFase = true;
+        cameraConstrucction.SetActive(true);
+        cameraGame.SetActive(false);
+    }
+
+    public Player GetGamePlayer()
+    {
+        return _player;
+    }
+
+    public Core GetGameCore()
+    {
+        return _core;
+    }
+
+    public void AddResources(float amount)
+    {
+        resources += amount;
+        foreach (var obs in _observers)
+        {
+            obs.Notify("resources");
+        }
+
+    }
+
+    public void CostResources(float amount)
+    {
+        resources -= amount;
+        if (resources < 0)
+            resources = 0;
+        foreach (var obs in _observers)
+        {
+            obs.Notify("resources");
+        }
     }
 
     public void AddUpdateble(IUpdateable me)
     {
         if (!_gameUpdateables.Contains(me))
-        _gameUpdateables.Add(me);
+            _gameUpdateables.Add(me);
+        
     }
 
     public void RemoveUpdateable(IUpdateable me)
@@ -68,16 +142,29 @@ public class GameController : MonoBehaviour , IObservable
         if (_gameUpdateables.Contains(me))
         _gameUpdateables.Remove(me);
     }
+    public void AddUpdatebleConstruc(IUpdateable me)
+    {
+        if (!_construc.Contains(me))
+            _construc.Add(me);
 
-    public void DontUpdateMe(IUpdateable me)
-    {
-        if (!_dontUpdateables.Contains(me))
-            _dontUpdateables.Add(me);
     }
-    public void RestoreUpdateMe(IUpdateable me)
+
+    public void RemoveUpdateableConstruc(IUpdateable me)
     {
-        if (_dontUpdateables.Contains(me))
-            _dontUpdateables.Remove(me);
+        if (_construc.Contains(me))
+            _construc.Remove(me);
+    }
+
+    public void DonUpdateThis(IUpdateable me)
+    {
+        if (_DontUpdateables.Contains(me))
+            _gameUpdateables.Add(me);
+    }
+
+    public void RemoveDonUpdateThis(IUpdateable me)
+    {
+        if (_DontUpdateables.Contains(me))
+            _gameUpdateables.Remove(me);
     }
 
     public void Subscribe(IObserver observer)
@@ -92,4 +179,23 @@ public class GameController : MonoBehaviour , IObservable
             _observers.Remove(observer);
     }
 
+    public void PauseAll()
+    {
+        pauseGame = !pauseGame;
+
+        if (!pauseGame)
+        {
+            foreach (var obs in _observers)
+            {
+                obs.Notify("resume");
+            }
+        }
+        else
+        {
+            foreach (var obs in _observers)
+            {
+                obs.Notify("pause");
+            }
+        }
+    }
 }

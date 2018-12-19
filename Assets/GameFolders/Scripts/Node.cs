@@ -11,12 +11,13 @@ public class Node : MonoBehaviour
     public float radiusNeight;
     public List<Material> materials;
     private Renderer _renderer;
+    public float securityLvl;
 
     void Start()
     {
-        /*
+        
         if (!target && nextNodes.Count == 0 )
-            nextNodes = GetNeightbords();*/
+            nextNodes = GetNeightbords();
 
         NodeConteiner.instance.AddToConteiner(this);
     }
@@ -27,7 +28,7 @@ public class Node : MonoBehaviour
             CheckDispocition();
     }
 
-    /*
+    
     List<Node> GetNeightbords()
     {
         List<Node> temp = new List<Node>();
@@ -39,11 +40,11 @@ public class Node : MonoBehaviour
                     .ToList();
 
         if (temp.Any(node => node.target))
-            temp = temp.Where(node => node.target)
+            temp = temp.Where(node => node.target == true)
                        .ToList();
         return temp;
     }
-    */
+    
 
     public void CheckDispocition()
     {
@@ -53,11 +54,23 @@ public class Node : MonoBehaviour
         if (avaliable)
             _renderer.material = materials[0];
         else
-            _renderer.material = materials[1];
+            _renderer.material = materials[materials.Count-1];
     }
 
-    private void OnGUI()
+    public void PositionConstruc()
     {
-        
+        if (GetComponent<Renderer>() != null)
+            _renderer = GetComponent<Renderer>();
+
+        _renderer.material = materials[1];
     }
+
+    public void RestoreConstruc()
+    {
+        if (GetComponent<Renderer>() != null)
+            _renderer = GetComponent<Renderer>();
+
+        _renderer.material = materials[0];
+    }
+
 }

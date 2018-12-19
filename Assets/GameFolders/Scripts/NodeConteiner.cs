@@ -7,7 +7,7 @@ public class NodeConteiner : MonoBehaviour
 {
 
     public static NodeConteiner instance;
-    public List<Node> _allNodes;
+    public List<Node> allNodes;
 
     private void Awake()
     {
@@ -27,9 +27,9 @@ public class NodeConteiner : MonoBehaviour
 
     public void AddToConteiner(Node node)
     {
-        if (!_allNodes.Contains(node))
+        if (!allNodes.Contains(node))
         {
-            _allNodes.Add(node);
+            allNodes.Add(node);
         }
 
         if (CheckAllNodeIn()) ClearColliders();
@@ -37,13 +37,13 @@ public class NodeConteiner : MonoBehaviour
 
     public Node TargetNode()
     {
-        var nodeTarget = _allNodes.Where(x => x.target).First();
+        var nodeTarget = allNodes.Where(x => x.target).First();
         return nodeTarget;
     }
 
     void ClearColliders()
     {
-        var colliders = _allNodes.Select(node => node.gameObject.GetComponent<Collider>());
+        var colliders = allNodes.Select(node => node.gameObject.GetComponent<Collider>());
         foreach (var item in colliders)
         {
             Destroy(item);
@@ -53,7 +53,7 @@ public class NodeConteiner : MonoBehaviour
     bool CheckAllNodeIn()
     {
         var nodes = FindObjectsOfType<Node>().ToList();
-        if (_allNodes.Count == nodes.Count)
+        if (allNodes.Count == nodes.Count)
             return true;
         else
             return false;

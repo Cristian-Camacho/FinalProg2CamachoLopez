@@ -120,17 +120,13 @@ public class SoundsIDs : MonoBehaviour
 
     public const int ID_SHOOT = 0;
     public const int ID_HERO_HIT = 1;
-    public const int ID_ENEMY_SHOOT = 2;
-    public const int ID_ENEMY1_DESTROY = 3;
-    public const int ID_ENEMY2_DESTROY = 4;
-    public const int ID_IMPACT_FLOOR = 5;
-    public const int ID_DESTROY_FLOOR = 6;
-    public const int ID_HEAL_PICKUP = 7;
-    public const int ID_POWERUP = 8;
-    public const int ID_BUTTOM_PRESS = 9;
-    public const int ID_PAUSE_ON = 10;
-    public const int ID_PAUSE_OFF = 11;
-    public const int ID_FASE_UP = 12;
+    public const int ID_ENEMY1_DESTROY = 2;
+    public const int ID_IMPACT_FLOOR = 3;
+    public const int ID_DESTROY_FLOOR = 4;
+    public const int ID_BUTTOM_PRESS = 5;
+    public const int ID_PAUSE_ON = 6;
+    public const int ID_PAUSE_OFF = 7;
+    public const int ID_FASE_UP = 8;
 
     public const int ID_FASE_1 = 13;
     public const int ID_FASE_2 = 14;

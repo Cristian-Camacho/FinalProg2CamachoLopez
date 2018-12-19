@@ -20,9 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4749078736058660}
   - component: {fileID: 95299836498497610}
+  - component: {fileID: 136668201740144826}
+  - component: {fileID: 114821818201137304}
   m_Layer: 0
   m_Name: Core
-  m_TagString: Untagged
+  m_TagString: Core
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196833122267640}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.84, y: 0, z: -0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4840349559094988}
@@ -358,7 +360,7 @@ Animator:
   m_GameObject: {fileID: 1196833122267640}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5bb4033b0226d7d4b8442540b72af56e, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a41b290fe356395419af2965f8002ae8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -366,6 +368,33 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114821818201137304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196833122267640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d220759738be9de44aefe6307965ade0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 500
+  currentLife: 0
+  feed: {fileID: 1718274696967204, guid: a93f42de54f938d43a80be1875ba2e9d, type: 2}
+--- !u!136 &136668201740144826
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196833122267640}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.9588403
+  m_Height: 9.249877
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.2586675, z: 0}
 --- !u!198 &198187017277187226
 ParticleSystem:
   m_ObjectHideFlags: 1

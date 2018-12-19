@@ -10,7 +10,7 @@ public class GameCore : DefaultTrackableEventHandler
     {
         base.OnTrackingFound();
         lostIt = false;
-        GameController.instance.CoreVisible(true);
+       // GameController.instance.CoreVisible(true);
         StopCoroutine("WaitForIt");
         //Agregar un timer para q pasado cierto tiempo recien haga el tracking lost
     }
@@ -21,7 +21,7 @@ public class GameCore : DefaultTrackableEventHandler
         if (lostIt)
         {
             base.OnTrackingLost();
-            GameController.instance.CoreVisible(false);
+           // GameController.instance.CoreVisible(false);
         }
     }
 

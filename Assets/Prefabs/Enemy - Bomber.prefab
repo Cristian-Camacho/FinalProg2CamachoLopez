@@ -51,9 +51,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4214463995202456}
   - component: {fileID: 95970620398064560}
+  - component: {fileID: 65281016965387508}
+  - component: {fileID: 114320433514823984}
   m_Layer: 0
   m_Name: Enemy - Bomber
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,7 +271,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183552781236710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.84, y: 0, z: 4.05}
+  m_LocalPosition: {x: -49.8, y: -0.05, z: -28.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4097946164024250}
@@ -360,6 +362,18 @@ Transform:
   m_Father: {fileID: 4214463995202456}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65281016965387508
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1183552781236710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.6900449, z: 0.91153264}
+  m_Center: {x: 0, y: 0.82306504, z: 0.16808784}
 --- !u!95 &95970620398064560
 Animator:
   serializedVersion: 3
@@ -369,7 +383,7 @@ Animator:
   m_GameObject: {fileID: 1183552781236710}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6e77d8e9222689e4ba51d1bb1ff09f42, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5521be3620b456646920d1fb35c11f49, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -377,6 +391,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114320433514823984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1183552781236710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c28329741c3cc745b6b6f81dbe1a77a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 50
+  speed: 3
+  range: 2
+  damage: 20
+  explodeFeed: {fileID: 1334006794908338, guid: 8e249531e4e2ef64b85d57c2026e57ef,
+    type: 2}
+  dieFeed: {fileID: 1853156870483422, guid: 6f9f95967ffcf8a449898a301f7effd8, type: 2}
 --- !u!137 &137914290535005474
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

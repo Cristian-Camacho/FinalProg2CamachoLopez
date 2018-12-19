@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class KeyboardController : ControllerInput
 {
     private Ray _cameraRay = new Ray();
-    private RaycastHit _hit;
     private Vector3 _vectorMovement;
     private Vector3 _vectorAim;
 
@@ -26,14 +26,14 @@ public class KeyboardController : ControllerInput
     public override Vector3 CheckRotation()
     {
         _vectorAim = Vector3.zero;
-        if (Input.mousePosition != null)
-            _cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        _cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 temp = Physics.RaycastAll(_cameraRay)
+                          .Where(impact => impact.transform.gameObject.CompareTag("Ground"))
+                          .Select(donde => donde.point)
+                          .FirstOrDefault();
+        if(temp!= null)
+            _vectorAim = new Vector3(temp.x, 0, temp.z);
 
-        if (Physics.Raycast(_cameraRay, out _hit))
-        {
-            if (_hit.transform.gameObject.CompareTag("Ground"))
-                _vectorAim = new Vector3(_hit.point.x, 0, _hit.point.z);
-        }
         return _vectorAim;
     }
 

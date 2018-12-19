@@ -5,9 +5,10 @@ using UnityEngine;
 public class Player : Entidad, IObservable
 {
     public Vector3 startPos;
-    public float radius;
+    public float range;
     private List<IObserver> _observers;
     private ControllerInput _controllerInput;
+    public SparkAttack attack;
 
     public override void Start()
     {
@@ -25,7 +26,10 @@ public class Player : Entidad, IObservable
     {
         if (_controllerInput != null)
         {
+            var temp = transform.position;
             transform.position += _controllerInput.CheckMovement();
+            if (Vector3.Distance(GameController.instance.GetGameCore().transform.position, this.transform.position) > range)
+                transform.position = temp;
 
             if (SystemInfo.deviceType == DeviceType.Handheld)
                 transform.eulerAngles = _controllerInput.CheckRotation();
@@ -33,11 +37,23 @@ public class Player : Entidad, IObservable
                 transform.LookAt(new Vector3(_controllerInput.CheckRotation().x,
                                              transform.position.y,
                                              _controllerInput.CheckRotation().z));
+
+            if (_controllerInput.InputShoot() && attack.Avaliable())
+                attack.Attack();
         }
     }
 
     public override void Die()
     {
+        if (GameController.instance.resources < 150)
+            GameController.instance.RemoveUpdateable(this);
+        else
+        {
+            GameController.instance.CostResources(150);
+            Reposition();
+            GameController.instance.AddUpdateble(this);
+
+        }
     }
 
     public void Reposition()

@@ -14,8 +14,8 @@ public class MobileController : ControllerInput
     public MobileController(float speed)
     {
         _speed = speed;
-        stick = GameCanvasController.instance.moveStick;
-        stickAim = GameCanvasController.instance.aimStick;
+//        stick = GameCanvasController.instance.moveStick;
+  //      stickAim = GameCanvasController.instance.aimStick;
     }
 
     public override Vector3 CheckMovement()
